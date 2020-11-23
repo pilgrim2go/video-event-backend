@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+## Architecture
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### High-level architecture
 
-## Available Scripts
+This is a high-level view of how the different microservices interact with each other. Each service folder contains anarchitecture diagram with more details for that specific service.
 
-In the project directory, you can run:
 
-### `yarn start`
+Reference-style: 
+![alt text](docs/images/simple-video-solution.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Some screenshots
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+__User Workflow__
 
-### `yarn test`
+![Create Account](docs/images/account-login.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+![Confirm Account](docs/images/account-confirm.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![New Event](docs/images/event-new.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Event Detail](docs/images/event-detail.png)
+![Event Link](docs/images/event-link.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+### Technologies used
+__Development__:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+* [AWS Amplify](https://aws.amazon.com/amplify/) build and deploy secure, scalable full stack applications, powered by AWS
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+__Communication/Messaging__:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+* [AWS AppSync](https://aws.amazon.com/appsync/) for interactions between users and the Video Event platform.
 
-## Learn More
+__Authentication/Authorization__:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* [Amazon Cognito](https://aws.amazon.com/cognito/) for managing and authenticating users, and providing JSON web tokens used by services.
+* [AWS Identity and Access Management](https://aws.amazon.com/iam/) for service-to-service authorization, either between microservices (e.g. authorize to call an Amazon API Gateway REST endpoint), or within a microservice (e.g. granting a Lambda function the permission to read from a DynamoDB table).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+__Hosting__:
 
-### Code Splitting
+* [AWS S3 Website](https://aws.amazon.com/s3/) S3 static website
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+__Storage__:
 
-### Analyzing the Bundle Size
+* [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) as a scalable NoSQL database for persisting event informations.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+### Backend services
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+|  Services  | Description                               |
+|------------|-------------------------------------------|
+| [users](amplify/backend/auth/) | Provides user management, authentication and authorization. |
+| [events](amplify/backend/api/) | Source of truth for event information. |
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Frontend service
 
-### Deployment
+|  Services  | Description                               |
+|------------|-------------------------------------------|
+| [frontend ](https://github.com/pilgrim2go/video-event-front) | Event Page interacting with Video Services (Jitsi). |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Demo
 
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+https://master.d8evde177bw8j.amplifyapp.com/

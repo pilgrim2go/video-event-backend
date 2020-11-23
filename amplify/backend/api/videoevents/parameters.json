@@ -1,0 +1,11 @@
+{
+    "AppSyncApiName": "videoevents",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": "false",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authvideoevents3712ac67",
+            "Outputs.UserPoolId"
+        ]
+    }
+}
